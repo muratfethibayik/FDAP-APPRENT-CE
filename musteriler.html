@@ -74,39 +74,87 @@
 
     <script>
 
-        const musteriAdi = document.querySelector("#musteriAdi");
-        const musteriListesi =
-            document.querySelector(".musteri-listesi");
+    const musteriAdi = document.querySelector("#musteriAdi");
+    const musteriListesi =
+        document.querySelector(".musteri-listesi");
 
-        function musteriEkle() {
 
-            if (musteriAdi.value === "") {
-                return;
-            }
+    function musteriEkle() {
 
-            const yeniMusteri =
-                document.createElement("li");
-
-            yeniMusteri.textContent =
-                musteriAdi.value;
-
-            const silButonu =
-                document.createElement("button");
-
-            silButonu.textContent = "Sil";
-
-            yeniMusteri.appendChild(silButonu);
-
-            musteriListesi.appendChild(yeniMusteri);
-
-            silButonu.addEventListener("click", function() {
-                yeniMusteri.remove();
-            });
-
-            musteriAdi.value = "";
+        if (musteriAdi.value === "") {
+            return;
         }
 
-    </script>
+        const yeniMusteri =
+            document.createElement("li");
 
+        yeniMusteri.textContent =
+            musteriAdi.value;
+
+        musteriListesi.appendChild(yeniMusteri);
+
+        musteriSilButonuEkle(yeniMusteri);
+
+        musteriAdi.value = "";
+
+        musterileriKaydet();
+    }
+
+
+    function musteriSilButonuEkle(musteri) {
+
+        const silButonu =
+            document.createElement("button");
+
+        silButonu.textContent = "Sil";
+
+        musteri.appendChild(silButonu);
+
+
+        silButonu.addEventListener("click", function() {
+
+            musteri.remove();
+
+            musterileriKaydet();
+
+        });
+
+    }
+
+
+    function musterileriKaydet() {
+
+        localStorage.setItem(
+            "musteriler",
+            musteriListesi.innerHTML
+        );
+
+    }
+
+
+    const kayitliMusteriler =
+        localStorage.getItem("musteriler");
+
+
+    if (kayitliMusteriler) {
+
+        musteriListesi.innerHTML =
+            kayitliMusteriler;
+
+
+        const musteriler =
+            musteriListesi.querySelectorAll("li");
+
+
+        musteriler.forEach(function(musteri) {
+
+            musteriSilButonuEkle(musteri);
+
+        });
+
+    }
+
+</script>
+       
 </body>
 </html>
