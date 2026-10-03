@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FDAP Apprentice</title>
+
+    <style>
+        button {
+    font-size: 20px;
+    padding: 15px;
+}
+        body{
+            text-align: center;
+        }
+        h1{
+            color:blue
+        }
+    .aciklama{
+        color: green;
+    }
+    .proje-basligi {
+    color: red;
+}
+.engine-basligi{
+    color: orange;
+}
+</style>
+</head>
+<body>
+    <h1>FDAP</h1>
+
+    <h2 class="engine-basligi">All Business Engine</h2>
+
+    <p>İşletmeler için AI destekli otomasyon sistemi</p>
+
+    <button class="dashboard-butonu">Dashboarda Gir</button>
+    
+    <h2 class="proje-basligi">Benim İlk FDAP Projem</h2>
+
+    <p  class="aciklama">FDAP teknolojilerini öğreniyorum</p>
+
+<button>Paneli Aç</button>
+<script>
+    const dashboardButonu = document.querySelector(".dashboard-butonu");
+    const aciklama = document.querySelector(".aciklama");
+
+    dashboardButonu.addEventListener("click", function() {
+    aciklama.textContent = "FDAP Dashboard yükleniyor...";
+    window.location.href = "dashboard.html";
+});
+</script>
+</body>
+</html>

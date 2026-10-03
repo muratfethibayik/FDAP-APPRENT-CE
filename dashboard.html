@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FDAP Dashboard</title>
+
+    <style>
+        .istatistik-kartlari {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.istatistik-karti {
+    width: 220px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.istatistik-karti h2 {
+    margin-bottom: 10px;
+}
+
+.istatistik-sayi {
+    font-size: 40px;
+    font-weight: bold;
+    color: #222;
+} 
+       body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+h1 {
+    color: rgb(213, 48, 15);
+}
+
+h2 {
+    color: orange;
+}
+
+p {
+    color: blue;
+}
+
+.kart {
+    display: inline-block;
+    width: 250px;
+    min-height: 180px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid black;
+    background-color: black;
+    vertical-align: top;
+    border-radius: 10px;
+}
+
+.lead-listesi {
+    color: aqua;
+    text-align: left;
+}
+
+button {
+    padding: 8px 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 220px;
+    height: 100vh;
+    background-color: #111;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    color: white;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.ana-alan {
+    margin-left: 240px;
+    padding: 30px;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>FDAP</h2>
+
+        <button>📊 Dashboard</button>
+        <button onclick="window.location.href='musteriler.html'">
+    👥 Müşteriler
+</button>
+       <button onclick="leadlerSayfasiniAc()">🎯 Leadler</button>
+        <button>🤖 AI Employees</button>
+        <button>💬 Mesajlar</button>
+        <button>📈 Satış Pipeline</button>
+        <button>⚙️ Ayarlar</button>
+    </div>
+
+    <div class="ana-alan">
+
+        <h1>FDAP Dashboard</h1>
+
+        <p>Dashboard'a hoş geldiniz.</p>
+
+        <div class="kart">
+            <h2>Müşteriler</h2>
+            <p>0</p>
+        </div>
+
+        <div class="kart">
+            <h2>Leadler</h2>
+            <p class="lead-sayisi">0</p>
+            <p class="lead-mesaji"></p>
+
+            <input
+                type="text"
+                class="lead-adi"
+                placeholder="Lead adı"
+            >
+
+            <button onclick="leadEkle()">Lead Ekle</button>
+
+            <ol class="lead-listesi"></ol>
+        </div>
+
+        <div class="kart">
+            <h2>AI Employees</h2>
+            <p>0</p>
+        </div>
+
+    </div>
+
+    <script>
+
+        const leadSayisi = document.querySelector(".lead-sayisi");
+const leadMesaji = document.querySelector(".lead-mesaji");
+const leadAdi = document.querySelector(".lead-adi");
+const leadListesi = document.querySelector(".lead-listesi");
+
+function leadEkle() {
+
+    if (leadAdi.value === "") {
+        leadMesaji.textContent = "Lütfen lead adı girin!";
+        return;
+    }
+
+    let mevcutSayi = Number(leadSayisi.textContent);
+    mevcutSayi = mevcutSayi + 1;
+    leadSayisi.textContent = mevcutSayi;
+
+    const girilenIsim = leadAdi.value;
+
+    leadMesaji.textContent = girilenIsim + " adlı lead eklendi!";
+
+    const yeniLead = document.createElement("li");
+    yeniLead.textContent = girilenIsim;
+
+    const silButonu = document.createElement("button");
+    silButonu.textContent = "Sil";
+
+    yeniLead.appendChild(silButonu);
+    leadListesi.appendChild(yeniLead);
+
+    silButonu.addEventListener("click", function() {
+
+        yeniLead.remove();
+
+        let mevcutSayi = leadListesi.querySelectorAll("li").length;
+        leadSayisi.textContent = mevcutSayi;
+
+        localStorage.setItem("leadler", leadListesi.innerHTML);
+        localStorage.setItem("leadSayisi", leadSayisi.textContent);
+
+    });
+
+    localStorage.setItem("leadler", leadListesi.innerHTML);
+    localStorage.setItem("leadSayisi", leadSayisi.textContent);
+
+    leadAdi.value = "";
+}
+function leadlerSayfasiniAc() {
+    window.location.href = "leadler.html";
+}
+const kayitliLeadler = localStorage.getItem("leadler");
+
+if (kayitliLeadler) {
+    leadListesi.innerHTML = kayitliLeadler;
+}
+
+const kayitliLeadSayisi = localStorage.getItem("leadSayisi");
+
+if (kayitliLeadSayisi) {
+    leadSayisi.textContent = kayitliLeadSayisi;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FDAP Müşteriler</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .baslik {
+            margin-top: 30px;
+        }
+
+        .musteri-karti {
+            background-color: white;
+            width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        input {
+            padding: 10px;
+            width: 60%;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .musteri-listesi {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="baslik">
+
+        <button onclick="window.location.href='dashboard.html'">
+            ← Dashboard'a Dön
+        </button>
+
+        <h1>👥 FDAP Müşteriler</h1>
+
+        <p>Müşteri yönetim ekranına hoş geldiniz.</p>
+
+    </div>
+
+    <div class="musteri-karti">
+
+        <h2>Müşteri Ekle</h2>
+
+        <input
+            type="text"
+            id="musteriAdi"
+            placeholder="Müşteri adı"
+        >
+
+        <button onclick="musteriEkle()">
+            Müşteri Ekle
+        </button>
+
+        <ol class="musteri-listesi"></ol>
+
+    </div>
+
+    <script>
+
+        const musteriAdi = document.querySelector("#musteriAdi");
+        const musteriListesi =
+            document.querySelector(".musteri-listesi");
+
+        function musteriEkle() {
+
+            if (musteriAdi.value === "") {
+                return;
+            }
+
+            const yeniMusteri =
+                document.createElement("li");
+
+            yeniMusteri.textContent =
+                musteriAdi.value;
+
+            const silButonu =
+                document.createElement("button");
+
+            silButonu.textContent = "Sil";
+
+            yeniMusteri.appendChild(silButonu);
+
+            musteriListesi.appendChild(yeniMusteri);
+
+            silButonu.addEventListener("click", function() {
+                yeniMusteri.remove();
+            });
+
+            musteriAdi.value = "";
+        }
+
+    </script>
+
+</body>
+</html>

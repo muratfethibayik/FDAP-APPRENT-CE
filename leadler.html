@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FDAP Lead Management</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        .baslik {
+            margin-top: 30px;
+        }
+
+        .lead-karti {
+            background-color: white;
+            width: 500px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .lead-sayisi {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            width: 60%;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .lead-mesaji {
+            color: green;
+        }
+
+        .lead-listesi {
+            text-align: left;
+            color: #222;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="baslik">
+        <button onclick="window.location.href='dashboard.html'">
+    ← Dashboard'a Dön
+</button>
+        <h1>🎯 FDAP Lead Management</h1>
+        <p>Leadlerinizi buradan yönetin.</p>
+    </div>
+
+    <div class="lead-karti">
+
+        <h2>Toplam Lead</h2>
+
+        <p class="lead-sayisi">0</p>
+
+        <input
+            type="text"
+            class="lead-adi"
+            placeholder="Lead adı"
+        >
+
+        <button onclick="leadEkle()">Lead Ekle</button>
+
+        <p class="lead-mesaji"></p>
+
+        <ol class="lead-listesi"></ol>
+
+    </div>
+
+    <script>
+
+        const leadSayisi = document.querySelector(".lead-sayisi");
+        const leadMesaji = document.querySelector(".lead-mesaji");
+        const leadAdi = document.querySelector(".lead-adi");
+        const leadListesi = document.querySelector(".lead-listesi");
+
+        function leadEkle() {
+
+            if (leadAdi.value === "") {
+                leadMesaji.textContent = "Lütfen lead adı girin!";
+                return;
+            }
+
+            const girilenIsim = leadAdi.value;
+
+            const yeniLead = document.createElement("li");
+            yeniLead.textContent = girilenIsim;
+
+            const silButonu = document.createElement("button");
+            silButonu.textContent = "Sil";
+
+            yeniLead.appendChild(silButonu);
+            leadListesi.appendChild(yeniLead);
+
+            silButonu.addEventListener("click", function() {
+
+                yeniLead.remove();
+
+                leadSayisi.textContent =
+                    leadListesi.querySelectorAll("li").length;
+
+            });
+
+            leadSayisi.textContent =
+                leadListesi.querySelectorAll("li").length;
+
+            leadMesaji.textContent =
+                girilenIsim + " adlı lead eklendi!";
+
+            leadAdi.value = "";
+        }
+
+    </script>
+
+</body>
+</html>
