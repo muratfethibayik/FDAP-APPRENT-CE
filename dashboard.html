@@ -119,7 +119,7 @@ button {
 
         <div class="kart">
             <h2>Müşteriler</h2>
-            <p>0</p>
+            <p class="musteri-sayisi">0</p>
         </div>
 
         <div class="kart">
@@ -207,6 +207,26 @@ const kayitliLeadSayisi = localStorage.getItem("leadSayisi");
 if (kayitliLeadSayisi) {
     leadSayisi.textContent = kayitliLeadSayisi;
 }
+const musteriSayisi =
+    document.querySelector(".musteri-sayisi");
+
+const kayitliMusteriler =
+    localStorage.getItem("musteriler");
+
+if (kayitliMusteriler) {
+
+    const geciciListe =
+        document.createElement("ol");
+
+    geciciListe.innerHTML =
+        kayitliMusteriler;
+
+    const toplamMusteri =
+        geciciListe.querySelectorAll("li").length;
+
+    musteriSayisi.textContent =
+        toplamMusteri;
+}gi
 </script>
 
 </body>
